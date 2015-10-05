@@ -2,6 +2,7 @@
     <wb-module deploy-name="donggang">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="donggang"/>
         <property name="java-output-path" value="/donggang/build/classes"/>
     </wb-module>
