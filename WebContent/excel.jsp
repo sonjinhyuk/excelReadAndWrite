@@ -10,11 +10,6 @@
 <title>¿¢¼¿</title>
 </head>
 <body>
-	<form method="post" name="frmReview" id="frmReview">
-		<input type="text" maxlength="256" id="blog_url" name="blog_url" style="width:400px;" value="http://3mhappyhouse.blog.me/30185320565"/>
-		<input type="file" id="excelFile" name="thumb_img" />
-		<input type="button" value="ÀÛ¼ºÇÏ±â" id = "fileSelect">
-	</form>
-
+	<input type="file" name="Upfile" id="excelFile">
 </body>
 </html>

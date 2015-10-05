@@ -3,17 +3,17 @@
  */
 
 $(document).ready(function(){
-	$("#fileSelect").on("click",function(){
+	$("#excelFile").on("change",function(){
 		event.preventDefault();
 		var parameter = {
-			"data" : "ASD"
+			"filePath" : this.value
 		}
 		$.ajax({
 			type : "POST",
 			url : "./Excel.do?op=fileInput",
 			data : parameter,
 			contenType : "application/son; charset=utf-8",
-//			dataType : "json",
+			dataType : "json",
 			beforeSend : function(){
 				$("body").css("cursor","wait");
 			},
@@ -30,32 +30,6 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
-    
-//
-//    $("form#frmReview").submit(function(event) {
-//		// disable the default form submission
-//		event.preventDefault();
-//
-//		var fd = new FormData($(this)[0]);
-//
-//		$.ajax({
-//			url : "./Excel.do?op=fileInput",
-//			type : "POST",
-//			data : fd,
-//			cache : false,
-//			contentType : false,
-//			processData : false,
-//			success : function(data) {
-//				alert(data);
-//				/* alert(data); if json obj. alert(JSON.stringify(data)); */
-//			}
-//		});
-//
-//		return false;
-//
-//	});
-	
 });
 
 function reviewUploadImg(fileObj) {
