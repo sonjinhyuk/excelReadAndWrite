@@ -47,6 +47,9 @@ public class Excel extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html; charset=euc-kr");
@@ -103,10 +106,31 @@ public class Excel extends HttpServlet {
 			String columnDatas = request.getParameter("columnData");//,(comma)로 이어져 있음.
 			String column[] = columnDatas.split(",");
 			JSONArray excelData = edao.dataAccept("D:\\tempFolder\\tempExcel.xlsx", column.length);//아이디어필요
-																							//후보 1. 쿠키나 세션
-																							//후보 2. 전역변수
-			
+																								   //후보 1. 쿠키나 세션
+																								   //후보 2. 전역변수
 			pw.print(edao.insertDB(column,excelData));
+		} else if( op.equals("grape") ){
+			String type = request.getParameter("data");
+			String period = request.getParameter("period");
+			double calDate = 0;
+			String endDate;
+			if( type.trim().equals("") || period.trim().equals("") ) {
+				JSONObject returndata = new JSONObject();
+				returndata.put("success", "fail");
+				pw.print(returndata);
+			}
+			else {
+				//type 및 기간 설정
+				if( period.equals("1") || period.equals("0.5") || period.equals("3") || period.equals("5")){
+					endDate = "";
+					calDate = Double.parseDouble(period);
+					period = "today";
+				} else{
+					endDate = period.split(" ")[1];
+					period = period.split(" ")[0];
+				}
+				pw.print(edao.getData(type,period,endDate,calDate));//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
+			}
 		}
 		pw.flush();
 		pw.close();
