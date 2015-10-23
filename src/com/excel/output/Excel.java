@@ -131,6 +131,18 @@ public class Excel extends HttpServlet {
 				}
 				pw.print(edao.getData(type,period,endDate,calDate));//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
 			}
+		} else if( op.equals("searchCo") ){
+			pw.println(edao.getCo());
+		} else if( op.equals("searchPlant") ){//현재는 회사랑 같이 해놓았음
+			pw.println(edao.getCo());
+		} else if( op.equals("searchGenerator") ){
+			pw.println(edao.getPlant(request.getParameter("data")));
+		} else if( op.equals("searchClass") ){
+			String index = request.getParameter("data");
+			String generatorCode = request.getParameter("generatorCode");
+			int level = Integer.parseInt(index) + 2;
+			System.out.println(generatorCode);
+			pw.print(edao.getLevelPlant(generatorCode, level));
 		}
 		pw.flush();
 		pw.close();

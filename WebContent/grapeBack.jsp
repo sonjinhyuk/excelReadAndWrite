@@ -4,28 +4,27 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-		<link rel="stylesheet" type="text/css" href="./css/checkUp.css">
 		<link rel="stylesheet" type="text/css" href="./css/jquery.modal.css">
+		<link rel="stylesheet" type="text/css" href="./css/checkUp.css">
 		<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="./js/highcharts.js"></script>
+		<script type="text/javascript" src="./js/modules/data.js"></script>
+		<script type="text/javascript" src="./js/modules/exporting.js"></script>
+		<script type="text/javascript" src="./js/grape.js"></script>
+		<link rel="stylesheet" type="text/css" href="./css/grape.css">
 		<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
 		<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
 		<script>
-			webshims.setOptions('waitReady', false);
-			webshims.setOptions('forms-ext', {types: 'date'});
-			webshims.polyfill('forms forms-ext');
+		  webshims.setOptions('waitReady', false);
+		  webshims.setOptions('forms-ext', {types: 'date'});
+		  webshims.polyfill('forms forms-ext');
 		</script>
 		<script type="text/javascript" src = "./js/jquery.modal.js"></script>
 		<script type="text/javascript" src = "./js/regularCheckUp.js"></script>
-		<title>정비점검 데이터 입력</title>
+	<title>그래프 출력</title>
 	</head>
 	<body>
-		<div class = "inputLayout">
-			사후 정비 정보 입력
-			<div class = "radioButton">
-				<input type = "radio" name = "inputFile" id = "basic" value = "basic" checked="checked"> <label for = "basic">기본 입력</label>
-				<input type = "radio" name = "inputFile" id = "excel" value = "excel"> <label for = "excel">Excel 파일 입력</label>
-				<input type = "radio" name = "inputFile" id = "XML"   value = "XML">   <label for = "XML">XML파일 입력</label>
-			</div>
+		<div id = "selectLayout">
 			<div class = "group">
 				<span>전력 그룹</span>
 			</div>
@@ -70,31 +69,38 @@
 				<div><a href="#classSearch" rel ="modal:open"><input type = "text" class = "levelClass" readonly = "readonly" placeholder="클릭하여 찾아 주세요"></a><input type ="hidden" class ="levelEquipCode" ></div>
 				<div><a href="#classSearch" rel ="modal:open"><input type = "text" class = "levelClass" readonly = "readonly" placeholder="클릭하여 찾아 주세요"></a><input type ="hidden" class ="levelEquipCode" ></div>
 			</div>
-			<div style="border-bottom : 1px solid black;">실적 입력일</div>
-			<div class = "dateInput">
-				<div class = "textLayout">시</div><div><input type = "date" id = "inputResultDate"><input type = "time" id = "inputResultTime"></div>
-				<div class = "textLayout">처리시간</div><input type = "date" id = "startDate"><input type = "time" id = "startTime"> ~ <input type = "date" id = "endDate" ><input type = "time" id = "endTime"> 
+			<div class = "lebelSelect periodSelect">
+				<select id = "periodDate">
+					<option value = 1 >1년</option>
+					<option value = 0.5>6개월</option>
+					<option value = 3 >3년</option>
+					<option value = 5 >5년</option>
+					<option value = 'period' >기간 선택</option>
+				</select>
+				<input type = "date" id = "startDate" class = "date" disabled="disabled">
+				<input type = "date" id = "endDate" class = "date" disabled="disabled">
+				<button id = "drawGrape">그래프</button>
 			</div>
-			<div style="border-bottom : 1px solid black;">고장코드<span style="float:right;"><button>추가</button></span></div>
-			<div class = "fault">
-				<div class = "faultInfo">
-					<div>고장부위(작업부위)</div>
-					<div>고장모드(내용)</div>
-					<div>고장원인</div>
-					<div>예방(정비)업무</div>
-					<div>삭제</div>
-				</div>
-				<div class = "inputfault">
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><button>삭제</button></div>
-				</div>
+		</div>
+		<div id = "grapePrint">
+		</div>
+		
+		<div class = "listClass">
+			<div class = "list">
+				리스트1
+				<div></div>
 			</div>
-			<div class = "workContent">
-				<div class = "textLayout">작업 내용</div><div><textarea id = "workContent"></textarea></div>
-				<div class = "textLayout">차기장비반영사항</div><div><textarea id = "nextCheckReflection"></textarea></div>
+			<div class = "list">
+				리스트2
+				<div></div>
+			</div>
+			<div class = "list">
+				리스트3
+				<div></div>
+			</div>
+			<div class = "list">
+				리스트4
+				<div></div>
 			</div>
 		</div>
 	</body>
