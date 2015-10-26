@@ -36,6 +36,7 @@ public class RegularCheck extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html; charset=euc-kr");
 		String op = request.getParameter("op");
 		PrintWriter pw = response.getWriter();
 		RegularCheckDAO rdao = new RegularCheckDAO();
@@ -51,6 +52,10 @@ public class RegularCheck extends HttpServlet {
 			int level = Integer.parseInt(index) + 2;
 			System.out.println(generatorCode);
 			pw.print(rdao.getLevelPlant(generatorCode, level));
+		} else if( op.equals("checkUp")){
+			String data = request.getParameter("data");
+			Priority p = new Priority();
+			pw.println(p.calPrioString(data));
 		}
 		pw.flush();pw.close();
 	}

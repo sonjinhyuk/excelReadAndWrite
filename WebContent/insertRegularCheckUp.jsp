@@ -94,7 +94,10 @@
 			</div>
 			<div class = "workContent">
 				<div class = "textLayout">작업 내용</div><div><textarea id = "workContent"></textarea></div>
-				<div class = "textLayout">차기장비반영사항</div><div><textarea id = "nextCheckReflection"></textarea></div>
+				<div class = "textLayout">차기장비반영사항</div><div><textarea id = "nextCheckReflection"></textarea><button onclick="checkUp()">확인</button></div>
+			</div>
+			<div class = "workContent checkUpType">
+				설비 타입<br/>
 			</div>
 		</div>
 	</body>

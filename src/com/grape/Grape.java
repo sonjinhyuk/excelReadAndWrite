@@ -1,4 +1,4 @@
-package com.excel.grape;
+package com.grape;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators.PrecedingIterator;
 
 /**
  * Servlet implementation class Grape
@@ -39,6 +41,7 @@ public class Grape extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html; charset=euc-kr");
 		String op = request.getParameter("op");
 		PrintWriter pw = response.getWriter();
 		GrapeDAO gdao;
@@ -47,7 +50,7 @@ public class Grape extends HttpServlet {
 			String period = request.getParameter("period");
 			double calDate = 0;
 			String endDate;
-			type = "COP-A";
+			type = "PAF";//COP-A가 없습니다.
 			if( type.trim().equals("") || period.trim().equals("") ) {
 				JSONObject returndata = new JSONObject();
 				returndata.put("success", "fail");
@@ -64,7 +67,8 @@ public class Grape extends HttpServlet {
 					period = period.split(" ")[0];
 				}
 				gdao = new GrapeDAO();
-				pw.print(gdao.getData(type,period,endDate,calDate));//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
+				JSONArray returndata = gdao.getData(type,period,endDate,calDate);
+				pw.print(returndata);//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
 			}
 		}
 		
