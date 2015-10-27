@@ -3,6 +3,7 @@ package com.regularCheck;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -100,5 +101,52 @@ public class RegularCheckDAO {
 			}
 		}
 		return returndata;
+	}
+	
+	public boolean insertDataBase( String co, String plant, String generator, String checkName,	String level1,
+								String level2, String level3, String level4, String level5, String inputResultDate,
+								String inputResultTime, String startDate, String startTime, String endDate, String endTime,
+								String faultLocation, String faultLocationContent, String faultContent, String faultContentContent,
+								String faultCause, String faultCauseContent, String faultPrevention, String faultPreventionContent,
+								String workContent, String nextCheckReflection, JSONArray priority ){
+		
+		bmanager = new DBmanager();
+		conn = bmanager.getConn();
+		JSONArray returndata = new JSONArray();
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append("insert into 테이블이름");//순서가 위와같은 순서가 아니라면 ( column, column, .... 입력 )
+			sql.append(" values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");//26개
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			int i = 1;
+			pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);
+			pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);
+			pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);
+			pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);
+			pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);pstmt.setString(i++, co);
+			String priorityString = "";
+			
+			for( int j = 0; j < priority.size(); j++ ){
+				priorityString += priority.get(j)+ ",";
+			}
+			pstmt.setString(i++, priorityString);
+			
+			int result = 1;// = pstmt.executeUpdate();
+			if( result != 0 ){
+				return true;
+			}
+			//26개인데
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bmanager.allclose(conn, pstmt, rs);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return false;
+		
 	}
 }

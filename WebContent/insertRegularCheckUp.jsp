@@ -85,10 +85,10 @@
 					<div>삭제</div>
 				</div>
 				<div class = "inputfault">
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
-					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContent" class = "faultContent"></div>
+					<div><input type = "text" id = "faultLocation" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultLocationContent" class = "faultContent"></div>
+					<div><input type = "text" id = "faultContent" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultContentContent" class = "faultContent"></div>
+					<div><input type = "text" id = "faultCause" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultCauseContent" class = "faultContent"></div>
+					<div><input type = "text" id = "faultPrevention" class = "faultSearch"><button>찾기</button><input type ="text" id = "faultPreventionContent" class = "faultContent"></div>
 					<div><button>삭제</button></div>
 				</div>
 			</div>
@@ -98,6 +98,7 @@
 			</div>
 			<div class = "workContent checkUpType">
 				설비 타입<br/>
+				<button>저장</button>
 			</div>
 		</div>
 	</body>

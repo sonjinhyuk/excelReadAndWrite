@@ -3,6 +3,12 @@ package com.excel.output;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -10,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -75,6 +83,9 @@ public class Excel extends HttpServlet {
 			// String enctype = "EUC-KR";
 			int maxFileSize = 15 * 1024 * 1024; // 5Mbytes로 업로드 파일 용량 제한
 			try {
+//				HttpSession session = request.getSession();
+//				String id = (String) session.getAttribute("id"); 아이디 따서 폴더 생성함
+				path += "\\id";//paht += "\\"+id;
 				MultipartRequest req = null;
 				req = new MultipartRequest(request, path // 물리적으로 저장될 위치
 						, maxFileSize, enctype, new MyFileRenamePolicy());
@@ -105,9 +116,43 @@ public class Excel extends HttpServlet {
 		} else if( op.equals("insetDB") ){
 			String columnDatas = request.getParameter("columnData");//,(comma)로 이어져 있음.
 			String column[] = columnDatas.split(",");
-			JSONArray excelData = edao.dataAccept("D:\\tempFolder\\tempExcel.xlsx", column.length);//아이디어필요
-																								   //후보 1. 쿠키나 세션
-																								   //후보 2. 전역변수
+//			HttpSession session = request.getSession();
+//			String id = (String) session.getAttribute("id"); 아이디로 저장
+			Calendar cal = Calendar.getInstance();
+			long todayMil = cal.getTimeInMillis();
+			File f = new File("D:\\tempFolder");//Path path = Paths.get("D:\\tempFolder\\" + id);
+			File[] list = f.listFiles();
+			String filePaht = "";
+			Date fileDate = null;
+			Date latestDate = null;
+			String etx;
+			int index;
+			String fileName = "";
+			int fileIndex = 0;
+			for( int i = 0; i < list.length; i++ ){
+				fileName = list[i].getName();
+				index = fileName.lastIndexOf(".");
+				if( index == -1 ){
+					continue;
+				}
+				etx = fileName.substring(index+1);
+				if( etx.equals("xls") || etx.equals("xlsx") ){
+					fileDate = new Date(list[i].lastModified());
+					if( latestDate == null ){
+						latestDate = fileDate;
+						fileIndex = i;
+						fileName = list[i].getName();
+					}
+					else {
+						if( latestDate.getTime() < fileDate.getTime() ){
+							fileName = list[i].getName();
+						} else {
+							fileName = list[fileIndex].getName();
+						}
+					}
+				}
+			}
+			JSONArray excelData = edao.dataAccept("D:\\tempFolder\\" + filePaht, column.length);//아이디어필요 시간으로 해결함.
 			pw.print(edao.insertDB(column,excelData));
 		} 
 		pw.flush();
