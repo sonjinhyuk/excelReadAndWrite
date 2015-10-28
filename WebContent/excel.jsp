@@ -21,6 +21,6 @@
 		</div>
 		<div id = "excelTable">
 		</div>	
-		<button onclick="insertDBData()">저장하기</button>
+		<button onclick="insertDBData()" id = "saveButton" >저장하기</button>
 	</body>
 </html>

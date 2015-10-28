@@ -184,7 +184,7 @@ public class ExcelDAO {
 				sql.append(sqlString);
 				pstmt = conn.prepareStatement(sql.toString());
 				for( int j = 1; j <= column.length; j++ ){
-					pstmt.setString(j, (String) jobj.get("column"+(j-1)));
+					pstmt.setString(j, (String) jobj.get("column"+column[j-1]));
 				}
 				pstmt.executeUpdate();
 				count++;

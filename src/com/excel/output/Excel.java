@@ -85,7 +85,7 @@ public class Excel extends HttpServlet {
 			try {
 //				HttpSession session = request.getSession();
 //				String id = (String) session.getAttribute("id"); 아이디 따서 폴더 생성함
-				path += "\\id";//paht += "\\"+id;
+//				paht += "\\"+id;
 				MultipartRequest req = null;
 				req = new MultipartRequest(request, path // 물리적으로 저장될 위치
 						, maxFileSize, enctype, new MyFileRenamePolicy());
@@ -122,7 +122,6 @@ public class Excel extends HttpServlet {
 			long todayMil = cal.getTimeInMillis();
 			File f = new File("D:\\tempFolder");//Path path = Paths.get("D:\\tempFolder\\" + id);
 			File[] list = f.listFiles();
-			String filePaht = "";
 			Date fileDate = null;
 			Date latestDate = null;
 			String etx;
@@ -152,7 +151,8 @@ public class Excel extends HttpServlet {
 					}
 				}
 			}
-			JSONArray excelData = edao.dataAccept("D:\\tempFolder\\" + filePaht, column.length);//아이디어필요 시간으로 해결함.
+			System.out.println(fileName);
+			JSONArray excelData = edao.dataAccept("D:\\tempFolder\\" + fileName, column.length);//data를 읽을 때 특정컬럼만 읽는 어려움이 존재하고 time overhead발생 가능성때문에 다 받고 선택하여 넣었음
 			pw.print(edao.insertDB(column,excelData));
 		} 
 		pw.flush();
