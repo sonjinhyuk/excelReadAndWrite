@@ -1,0 +1,33 @@
+@CHARSET "EUC-KR";
+.inputLayout{width: 1100px;height: 880px;border: 1px solid black;text-align: left;font-size: 20px;}
+.inputLayout > div{float:left;width: 100%;}
+.radioButton{height: 30px;border-top: 1px solid black;border-bottom: 1px solid black; text-align: center; padding-top:2px;}
+.group{height: 30px; border-bottom: 1px solid black; text-align: left; padding-top:2px;}
+.inputPlantInfo{border-bottom: 1px solid black; height: 28px; padding-top:2px;}
+.inputPlantInfo div{width: 13%; float: left; margin-right: 30px;}
+.inputPlantInfo div:nth-child(6){width: 18%; float: left; font-size: 17px; vertical-align: middle;}
+.inputPlantInfo input{width: 133px;}
+.inputPlantInfo > div:first-child{width: 491px;height: 165px; border: 1px solid black;border-radius: 25px; color: #141414;}
+#searchCoInfo div{float: left;margin-top: 15px;}
+#searchCoInfo div:nth-child(odd){width: 90px; margin-left: 30px;}
+#searchCoInfo div:nth-child(even){width: 280px; margin-left: 30px;}
+.textLayout{width: 18%;margin-right: 30px;text-align: left; padding-top: 2px; float:left;}
+.checkName{border-bottom: 1px solid black; height: 32px;}
+.checkName input{width: 74%;}
+.classInfo{height: 155px;border-bottom: 1px solid black;}
+.classInfo .textLayout{height: 155px;}
+.classInfo input{width: 70%;}
+.dateInput{border-bottom: 1px solid black;}
+.dateInput div:nth-child(even){float:left; margin-left: 3px;margin-right: 5px;}
+.dateInput .textLayout{width: 8%;}
+.fault{height: 63px;border-bottom: 1px solid black;}
+.faultInfo, .inputfault{border-bottom: 1px solid black; height: 31px;}
+.faultInfo div, .inputfault div{width:249px; float:left;border-right: 1px solid black; height: 31px;}
+.faultInfo div:last-child, .inputfault div:last-child{width:99px; border-right: 0px solid black;}
+.faultSearch{width: 55px;}
+.faultContent{width: 100px;}
+.workContent{height: 200px; border-bottom: 1px solid black;}
+.workContent div:nth-child(even){height: 50%; float: left;width: 864px;}
+.workContent textarea{width: 799px;height: 88px; resize:none;}
+.checkUpType span{width : 200px; height: 30px; text-align: center; border: 1px solid black;margin: 1px 2px 2px 0px;}
+.checkUpType span:HOVER {cursor: pointer;}

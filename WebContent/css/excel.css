@@ -1,35 +1,9 @@
 @CHARSET "EUC-KR";
-#excelFile{
-	height: 20px;
-	display: block;
-}
-#tableSelect{
-	display: block;
-}
-#dataBaseTable, #excelTable{
-	width: 30%;
-	height: 500px;
-	float:left;
-	overflow: auto;
-	border: 1px solid black;
-}
-#excelTable{
-	width: 50%;
-}
-#dataBaseTable>div:FIRST-CHILD, #excelTable>div:FIRST-CHILD{
-	text-align: center;
-	background-color: gray;
-	color: blue;
-	font-size: large;
-}
-.columnList{
-	padding: 0 0 0 15px;
-	height: 20px;
-}
-
-#excelTableDatas, #dbTableCoulmn{
-	float: left;
-	width: 50%;
-	height: 475px;
-}
+#excelFile{height: 20px;display: block;}
+#tableSelect{display: block;}
+#dataBaseTable, #excelTable{width: 30%;height: 500px;float:left;overflow: auto;border: 1px solid black;}
+#excelTable{width: 50%;}
+#dataBaseTable>div:FIRST-CHILD, #excelTable>div:FIRST-CHILD{text-align: center;background-color: gray;color: blue;font-size: large;}
+.columnList{padding: 0 0 0 15px;height: 20px;}
+#excelTableDatas{float: left;width: 100%;height: 475px;}
 

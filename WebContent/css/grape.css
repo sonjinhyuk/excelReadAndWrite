@@ -1,53 +1,20 @@
 @CHARSET "EUC-KR";
 
-#selectLayout, #listClass{
-	border: 2px solid #a1a1a1;
-	padding: 10px 40px;
-	width: 500px;
-	height: 300px;
-	border-radius: 25px;
-	background-color: #dddddd;
-}
-
-.powerPlantSelect, .levelSelect{
-	height: 55px;
-	padding: 5px 3px 5px 5px;
-}
-
-.powerPlantSelect input{
-	width: 80px;
-}
-
-.levelSelect div{
-	float: left;
-}
-
-.levelSelect input{
-	width: 375px;
-	border-radius: 15px;
-}
-
-.levelSelect button{
-	padding-left: 7px;
-}
-
-.levelSelect :nth-child(2){
-	padding-left: 20px;
-}
-
-#listClass{
-	margin: 10px 0;
-	overflow: auto;
-}
-#listClass > div {
-	padding: 5px 5px 5px 3px;
-	height: 55px;
-	border: 1px solid black;
-	margin: 2px 0;
-}
-
-.list div{
-	height: 0px;
-	border: 1px #a1a1a1 double;
-	border-radius: 10px;
-}
+#selectLayout, .listClass, #grapePrint {border: 2px solid #a1a1a1;padding: 10px 40px;width: 1000px;height: 350px;border-radius: 25px;background-color: #dddddd;float: left;}
+#grapePrint {width: 1000px;}
+#drawGrape {float: right;}
+.powerPlantSelect, .levelSelect {height: 55px;padding: 5px 3px 5px 5px;}
+.powerPlantSelect input {width: 80px;}
+.levelSelect div {float: left;}
+.levelSelect input {width: 375px;border-radius: 15px;}
+.levelSelect button {padding-left: 7px;}
+.levelSelect :nth-child(2) {padding-left: 20px;}
+#grapePrint {margin-left: 10px;}
+.listClass {margin: 10px 0;overflow: auto;clear: left;}
+.listClass>div {padding: 5px 5px 5px 3px;height: 55px;border: 1px solid black;margin: 2px 0;}
+.list div {height: 0px;border: 1px #a1a1a1 double;border-radius: 10px;}
+.periodSelect {height: 30px;}
+#searchCoInfo div{float: left;}
+#searchCoInfo div:nth-child(even){width: 70%;height: }
+#searchCoInfo div:nth-child(odd){}
+.inputPlantInfo input{width : 150px;}
