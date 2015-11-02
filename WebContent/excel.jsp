@@ -13,7 +13,7 @@
 	<body>
 		<form id = "#submitForm" enctype="multipart-form-data" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
 			<input name="attachFile" id="attachFile" type="file">
-			<button type="button" id="submitBtn">저장하기</button>
+			<button type="button" id="submitBtn">엑셀저장</button>
 		</form>
 		<select id = "tableSelect">
 		</select>
