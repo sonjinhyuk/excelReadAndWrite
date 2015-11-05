@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -90,6 +92,50 @@ public class ExcelDAO {
 				HSSFWorkbook workbook = new HSSFWorkbook(fs);
 				HSSFSheet sheet = workbook.getSheetAt(0);
 				rows = sheet.getPhysicalNumberOfRows();
+				int init = 0;
+				if( length == 0 ) rows = 1;//행만 가져오는 부분
+				else init = 1;//데이터만 가져오는 부분
+				
+				for( int r = init ; r < rows; r++ ){
+					HSSFRow row = sheet.getRow(r);
+					JSONObject json = new JSONObject();
+					if( row != null ){
+						int cells = row.getPhysicalNumberOfCells();
+						for( int c = 0; c < cells; c++ ){
+							HSSFCell cell = row.getCell(c);
+							String value = "";
+							if(cell==null){
+				                continue;
+				            }else{
+				                //타입별로 내용 읽기
+				                switch (cell.getCellType()){
+				                case HSSFCell.CELL_TYPE_FORMULA:
+				                    value=cell.getCellFormula();
+				                    break;
+				                case HSSFCell.CELL_TYPE_NUMERIC:
+									if (DateUtil.isCellDateFormatted(cell)) {
+										objSimpleDateFormat = new SimpleDateFormat("dd-MMM-YY HH:mm:ss", new Locale("en", "us"));
+										value = objSimpleDateFormat.format(cell.getDateCellValue())+"";
+									} else {
+										value=cell.getNumericCellValue()+"";
+									}
+				                    break;
+				                case HSSFCell.CELL_TYPE_STRING:
+				                    value=cell.getStringCellValue()+"";
+				                    break;
+				                case HSSFCell.CELL_TYPE_BLANK:
+				                    value=cell.getBooleanCellValue()+"";
+				                    break;
+				                case HSSFCell.CELL_TYPE_ERROR:
+				                    value=cell.getErrorCellValue()+"";
+				                    break;
+				                }
+				            }
+							json.put("column" + c, value);
+						}
+					}
+					returndata.add(json);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
