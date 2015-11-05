@@ -60,7 +60,6 @@
 		</div>
 		<div id = "grapePrint">
 		</div>
-		
 		<div class = "listClass">
 			<div class = "list">
 				¸®½ºÆ®1

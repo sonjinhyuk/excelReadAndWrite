@@ -96,28 +96,32 @@ public class GrapeDAO {
 			returndata.add(headData);
 			
 			JSONArray checkDatas = new JSONArray();
-			for( String column : columnName ){
-				sql = new StringBuffer();
-				sql.append("select powerPlant, content,t from (");
-				sql.append("\tselect powerPlant, content, convert(smalldatetime, SUBSTRING(dateD,8,2) + case SUBSTRING(dateD,4,3) ");
-				sql.append("\twhen 'Jan' then '01' when 'Feb' then '02' when 'Mar' then '03' when 'Apr' then '04' when 'May' then '05' when 'Jun' then '06'");
-				sql.append("\twhen 'Jul' then '07' when 'Aug' then '08' when 'Sep' then '09' when 'Oct' then '10' when 'Nov' then '11' when 'Dec' then '12'");
-				sql.append("end + left(dateD,2), 122 ) as t from regularCheckUp) as time where t between ? and ? and powerplant = ?");
-				pstmt = conn.prepareStatement(sql.toString());
-				pstmt.setString(1, start);
-				pstmt.setString(2, end);
-				pstmt.setString(3, column);
-				rs = pstmt.executeQuery();
-				JSONObject checkData;
-				while( rs.next() ){
-					checkData = new JSONObject();
-					checkData.put("powerPlant", rs.getString(1));
-					checkData.put("content", rs.getString(2));
-					checkData.put("checkTime", rs.getString(3));
-					checkDatas.add(checkData);
-				}
+			sql = new StringBuffer();
+			sql.append("select powerPlant, content,t from (");
+			sql.append("\tselect powerPlant, content, convert(smalldatetime, SUBSTRING(dateD,8,2) + case SUBSTRING(dateD,4,3) ");
+			sql.append("\twhen 'Jan' then '01' when 'Feb' then '02' when 'Mar' then '03' when 'Apr' then '04' when 'May' then '05' when 'Jun' then '06'");
+			sql.append("\twhen 'Jul' then '07' when 'Aug' then '08' when 'Sep' then '09' when 'Oct' then '10' when 'Nov' then '11' when 'Dec' then '12'");
+			sql.append("end + left(dateD,2), 122 ) as t from regularCheckUp) as time where t between ? and ? and ( powerplant = ?");
+			for( int index = 0; index < columnName.size()-1; index++ ){
+				sql.append(" or powerPlant = ? " );
 			}
-			System.out.println(checkDatas.size());
+			sql.append(")");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, start);
+			pstmt.setString(2, end);
+			for( int count = 0; count < columnName.size(); count++ ){
+				pstmt.setString(count+3, columnName.get(count));
+			}
+			rs = pstmt.executeQuery();
+			JSONObject checkData;
+			while( rs.next() ){
+				checkData = new JSONObject();
+				checkData.put("powerPlant", rs.getString(1));
+				checkData.put("content", rs.getString(2));
+				checkData.put("checkTime", rs.getString(3));
+				checkDatas.add(checkData);
+			}
+			
 			returndata.add(checkDatas);
 		} catch (Exception e) {
 			e.printStackTrace();

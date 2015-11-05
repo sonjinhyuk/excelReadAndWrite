@@ -31,8 +31,8 @@ $(document).ready(function(){
 				if( data.success == "fail" ) alert("정보를 입력하십시오.");
 				else {
 					datas = data;
-					draw(parameter.period);
 					checkDatas = datas[datas.length-1];
+					draw(parameter.period);
 //					var length = checkDats.length > $(".list")
 					for( var i = 0; i < checkDatas.length; i++ ){
 						$(".list:eq("+(i)+")").text(checkDatas[i].powerPlant + "\n" + checkDatas[i].content + "\n" + checkDatas[i].checkTime);
@@ -75,9 +75,6 @@ function draw( period ){
 		}
 	}
 	$("#grapePrint").highcharts({
-		chart: {
-			type: 'spline'
-		},
         title: {
             text: '그래프',
             x: -30 //center
@@ -91,7 +88,17 @@ function draw( period ){
             },
         },
         legend: {
-            enabled: false
+            enabled: true
+        },
+        chart:{
+        	events: {
+        		load: function(){
+        			plotDelete(this);
+        		},
+        		redraw: function () {
+        			plotDelete(this);
+                }
+        	}
         },
         plotOptions: {
             series: {
@@ -99,21 +106,14 @@ function draw( period ){
                 point: {
                     events: {
                         click: function () {
-                        	if( checkDatas[i].powerPlant == this.series.userOptions.name && checkDatas[i].checkTime.split(" ")[0] == this.category ){
-                    			//모달 생성 또는 보여주는 부분
-                    		}
                         }
                     },
                     events: {
-                        mouseOver: function () {
-                        	for( var i = 0; i < checkDatas.length; i++ ){
-                        		if( checkDatas[i].powerPlant == this.series.userOptions.name && checkDatas[i].checkTime.split(" ")[0] == this.category ){
-                        			alert("정검일자");
-                        		}
-        					}
-                        }
+                    	mouseOver: function(){
+                    		
+                    	}
                     }
-                }
+                },
             }
         },
         credits: {
@@ -126,4 +126,19 @@ function draw( period ){
         },
         series: series
     });
+}
+
+function plotDelete(obj){
+	for( var j = 0; j < obj.series.length; j++ ){
+		for( var k = 0; k < obj.series[j].data.length; k++ ){
+			var _this = obj.series[j].data[k];
+			var check = true;
+			for( var i = 0; i < checkDatas.length; i++ ){
+				if( checkDatas[i].powerPlant == _this.series.userOptions.name && checkDatas[i].checkTime.split(" ")[0] == _this.category ){
+					check = false;
+				}
+			}
+			if( check ) _this.graphic.element.setAttribute("visibility","hidden");
+		}
+	}
 }

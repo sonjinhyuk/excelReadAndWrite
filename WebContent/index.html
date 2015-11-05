@@ -43,7 +43,23 @@ $(function () {
                 name: 'All visits',
             }, {
                 name: 'New visitors'
-            }]
+            }],
+            plotOptions: {
+                series: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                            }
+                        },
+                        events: {
+                            mouseOver: function () {
+                            	var chart = this.series.chart;
+                            }
+                        }
+                    },
+                }
+            },
         });
     });
 
