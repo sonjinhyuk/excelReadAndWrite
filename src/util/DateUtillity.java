@@ -22,7 +22,6 @@ public class DateUtillity {
 	 * @return
 	 */
 	public String calDate( String startDate, int year, int month, int day ){
-		System.out.println(year);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar calendar = new GregorianCalendar(Locale.KOREA);
 		Date date = null;

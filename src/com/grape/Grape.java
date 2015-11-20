@@ -13,6 +13,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import com.sun.org.apache.xml.internal.dtm.ref.DTMDefaultBaseIterators.PrecedingIterator;
 
+import ChartDirector.XYChart;
+
 /**
  * Servlet implementation class Grape
  */
@@ -67,8 +69,9 @@ public class Grape extends HttpServlet {
 					period = period.split(" ")[0];
 				}
 				gdao = new GrapeDAO();
-				JSONArray returndata = gdao.getData(type,period,endDate,calDate);
-				pw.print(returndata);//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
+				XYChart c = gdao.getDataCharDirectorChart(type,period,endDate,calDate);
+				String chartURL = c.makeSession(request, "chart1");
+				pw.print(chartURL);//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
 			}
 		}
 		

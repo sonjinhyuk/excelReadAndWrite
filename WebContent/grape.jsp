@@ -58,8 +58,9 @@
 				<button id = "drawGrape">그래프</button>
 			</div>
 		</div>
-		<div id = "grapePrint">
-		</div>
+<!-- 		<div id = "grapePrint"> -->
+			<img src='' usemap="#map1" id = "printGrape" border="0">
+<!-- 		</div> -->
 		<div class = "listClass">
 			<div class = "list">
 				리스트1

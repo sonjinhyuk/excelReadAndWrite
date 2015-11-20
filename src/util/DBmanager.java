@@ -11,7 +11,7 @@ public class DBmanager {
 	public DBmanager() {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			conn = DriverManager.getConnection("jdbc:sqlserver://168.188.127.89:1433;DatabaseName=donggang;","donggang","donggang");
+			conn = DriverManager.getConnection("jdbc:sqlserver://168.188.127.89:3200;DatabaseName=donggang;","donggang","donggang");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
