@@ -150,6 +150,9 @@ function plotDelete(obj){
 function popMsg(obj) {
 	var _obj = $(obj);
 	var _objClass = _obj.attr("class");
-	if( _objClass.match("Check") != null ) { alert("체크");}
+	var _objTime = _obj.attr("value");
+	if( _objClass.match("Check") != null ) {
+		alert(_objTime);
+	}
 	
 }
