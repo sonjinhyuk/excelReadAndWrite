@@ -264,7 +264,7 @@ public class GrapeDAO {
 			if( i > count-1 ){
 				data = getData(xData.get(i));
 				layer = c.addLineLayer(data);
-				layer.addDataSet(data, color[i-count], powerPlant[i-count] + "_Check").setDataSymbol(Chart.GlassSphere2Shape,11);
+				layer.addDataSet(data, color[i-count], powerPlant[i-count] + "_Check").setDataSymbol(Chart.GlassSphere2Shape,18);
 			}else {
 				data = getData(xData.get(i));
 				layer = c.addLineLayer(data);

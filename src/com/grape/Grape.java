@@ -72,7 +72,7 @@ public class Grape extends HttpServlet {
 				XYChart c = gdao.getDataCharDirectorChart(type,period,endDate,calDate);
 				String chartURL = c.makeSession(request, "chart1");
 				JSONObject returndata = new JSONObject();
-				String chartImageMap = c.getHTMLImageMap("", " ","title='Check Date' class=[{dataSetName}] value = [{xLabel}] onclick = popMsg(this);");
+				String chartImageMap = c.getHTMLImageMap("", " ","title='Check Date' class=[{dataSetName}] value = '{xLabel}' onclick = popMsg(this);");
 //				String chartImageMap = c.getHTMLImageMap("javascript:popMsg('the legend key [{dataSetName}]');", " ",
 //			    "title='This legend key is clickable!'");
 				System.out.println(chartImageMap);
