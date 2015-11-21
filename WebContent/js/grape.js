@@ -23,14 +23,15 @@ $(document).ready(function(){
 			url : "./Grape.do?op=grape",
 			data: parameter,
 			contenType : "application/son; charset=utf-8",
-			dataType : "text",
+			dataType : "json",
 			beforeSend : function(){
 				$("body").css("cursor","wait");
 			},
 			success : function( data ){
 				if( data.success == "fail" ) alert("정보를 입력하십시오.");
 				else {
-					$("#printGrape").attr("src","getchart.jsp?"+data);
+					$("#printGrape").attr("src","getchart.jsp?"+data.chart);
+					$("#map1").html(data.Image);
 //					<%=response.encodeURL("getchart.jsp?" + chart1URL)%>
 				}
 			},
@@ -51,6 +52,7 @@ $(document).ready(function(){
 			$(".date").prop("disabled",true);
 		}
 	});
+	
 });
 function draw( period ){
 	var series = [];
@@ -128,8 +130,6 @@ function drawCharDirector( period ){
 	var categories = [];
 	var count = 1;
 	var text = "A(암페어)";//F냐 P냐에 따라 단위가 바뀌어야하낟.
-	
-	
 }
 
 function plotDelete(obj){
@@ -145,4 +145,11 @@ function plotDelete(obj){
 			if( check ) _this.graphic.element.setAttribute("visibility","hidden");
 		}
 	}
+}
+
+function popMsg(obj) {
+	var _obj = $(obj);
+	var _objClass = _obj.attr("class");
+	if( _objClass.match("Check") != null ) { alert("체크");}
+	
 }

@@ -1,118 +1,115 @@
-<%@page import="ChartDirector.*"%>
+<%@page import="ChartDirector.*" %>
 <%
-	// Data for the chart
-	double[] data0 = { 1700, 3900, 2900, 3800, 4100, 4600, 2900, 4100, 4400, 5700, 5900, 5200, 3700, 3400, 5100,
-			5600, 5600, 6000, 7000, 7600, 6300, 6700, 7500, 6400, 8800 };
-	double[] data1 = { 500, 550, 670, 990, 820, 730, 800, 720, 730, 790, 860, 800, 840, 680, 740, 890, 680, 790,
-			730, 770, 840, 820, 800, 840, 670 };
-	double[] data2 = { 46, 68, 35, 33, 38, 20, 12, 18, 15, 23, 30, 24, 28, 15, 21, 26, 46, 42, 38, 25, 23, 32,
-			24, 20, 25 };
-	double[] data3 = { 0.84, 0.82, 0.82, 0.38, 0.25, 0.52, 0.54, 0.52, 0.38, 0.51, 0.46, 0.29, 0.5, 0.55, 0.47,
-			0.34, 0.52, 0.33, 0.21, 0.3, 0.25, 0.15, 0.18, 0.22, 0.14 };
+// The data for the line chart
+double[] data0 = {50, 55, 47, 36, 42, 49, 63, 62, 73, 59, 56, 50, 64, 60, 67, 67, 58, 59, 73, 77,
+    84, 82, 80, 84};
+double[] data1 = {36, 28, 25, 33, 38, 20, 22, 30, 25, 33, 30, 24, 28, 36, 30, 45, 46, 42, 48, 45,
+    43, 52, 64, 70};
 
-	// Labels for the chart
-	String[] labels = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15",
-			"16", "17", "18", "19", "20", "21", "22", "23", "24" };
+// The labels for the line chart
+String[] labels = {"Jan-04", "Feb-04", "Mar-04", "Apr-04", "May-04", "Jun-04", "Jul-04", "Aug-04",
+    "Sep-04", "Oct-04", "Nov-04", "Dec-04", "Jan-05", "Feb-05", "Mar-05", "Apr-05", "May-05",
+    "Jun-05", "Jul-05", "Aug-05", "Sep-05", "Oct-05", "Nov-05", "Dec-05"};
 
-	// Create a XYChart object of size 600 x 360 pixels. Use a vertical gradient color from sky blue
-	// (aaccff) to white (ffffff) as background. Set border to grey (888888). Use rounded corners.
-	// Enable soft drop shadow.
-	XYChart c = new XYChart(600, 360);
-	c.setBackground(c.linearGradientColor(0, 0, 0, c.getHeight(), 0xaaccff, 0xffffff), 0x888888);
-	c.setRoundedFrame();
-	c.setDropShadow();
+// Create an XYChart object of size 600 x 360 pixels, with a light blue (EEEEFF) background, black
+// border, 1 pxiel 3D border effect and rounded corners
+XYChart c = new XYChart(600, 360, 0xeeeeff, 0x000000, 1);
+c.setRoundedFrame();
 
-	// Add a title box to the chart using 15pt Arial Bold Italic font. Set top margin to 16 pixels.
-	TextBox title = c.addTitle("Multiple Axes Demonstration", "Arial Bold Italic", 15);
-	title.setMargin2(0, 0, 16, 0);
+// Set plotarea at (55, 60) with size of 520 x 240 pixels. Use white (ffffff) as background and grey
+// (cccccc) for grid lines
+c.setPlotArea(55, 60, 520, 240, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
 
-	// Set the plotarea at (100, 80) and of size 400 x 230 pixels, with white (ffffff) background. Use
-	// grey #(aaaaa) dotted lines for both horizontal and vertical grid lines.
-	c.setPlotArea(100, 80, 400, 230, 0xffffff, -1, -1, c.dashLineColor(0xaaaaaa, Chart.DotLine), -1);
+// Add a legend box at (55, 58) (top of plot area) using 9pt Arial Bold font with horizontal layout
+// Set border and background colors of the legend box to Transparent
+LegendBox legendBox = c.addLegend(55, 58, false, "Arial Bold", 9);
+legendBox.setBackground(Chart.Transparent);
 
-	// Add a legend box with the bottom center anchored at (300, 80) (top center of the plot area). Use
-	// horizontal layout, and 8 points Arial Bold font. Set background and border to transparent.
-	LegendBox legendBox = c.addLegend(300, 80, false, "Arial Bold", 8);
-	legendBox.setAlignment(Chart.BottomCenter);
-	legendBox.setBackground(Chart.Transparent, Chart.Transparent);
+// Reserve 10% margin at the top of the plot area during auto-scaling to leave space for the
+// legends.
+c.yAxis().setAutoScale(0.1);
 
-	// Set the labels on the x axis.
-	c.xAxis().setLabels(labels);
+// Add a title to the chart using 15pt Times Bold Italic font. The text is white (ffffff) on a blue
+// (0000cc) background, with glass effect.
+ChartDirector.TextBox title = c.addTitle("Monthly Revenue for Year 2000/2001",
+    "Times New Roman Bold Italic", 15, 0xffffff);
+title.setBackground(0x0000cc, 0x000000, Chart.glassEffect(Chart.ReducedGlare));
 
-	// Display 1 out of 3 labels on the x-axis.
-	c.xAxis().setLabelStep(3);
+// Add a title to the y axis
+c.yAxis().setTitle("Month Revenue (USD millions)");
 
-	// Add a title to the x-axis
-	c.xAxis().setTitle("Hour of Day");
+// Set the labels on the x axis. Draw the labels vertical (angle = 90)
+c.xAxis().setLabels(labels).setFontAngle(90);
 
-	// Add a title on top of the primary (left) y axis.
-	c.yAxis().setTitle("Power\n(Watt)").setAlignment(Chart.TopLeft2);
-	// Set the axis, label and title colors for the primary y axis to red (c00000) to match the first
-	// data set
-	c.yAxis().setColors(0xcc0000, 0xcc0000, 0xcc0000);
+// Add a vertical mark at x = 17 using a semi-transparent purple (809933ff) color and Arial Bold
+// font. Attached the mark (and therefore its label) to the top x axis.
+Mark mark = c.xAxis2().addMark(17, 0x809933ff, "Merge with Star Tech", "Arial Bold");
 
-	// Add a title on top of the secondary (right) y axis.
-	c.yAxis2().setTitle("Load\n(Mbps)").setAlignment(Chart.TopRight2);
-	// Set the axis, label and title colors for the secondary y axis to green (00800000) to match the
-	// second data set
-	c.yAxis2().setColors(0x008000, 0x008000, 0x008000);
+// Set the mark line width to 2 pixels
+mark.setLineWidth(2);
 
-	// Add the third y-axis at 50 pixels to the left of the plot area
-	Axis leftAxis = c.addAxis(Chart.Left, 50);
-	// Add a title on top of the third y axis.
-	leftAxis.setTitle("Temp\n(C)").setAlignment(Chart.TopLeft2);
-	// Set the axis, label and title colors for the third y axis to blue (0000cc) to match the third
-	// data set
-	leftAxis.setColors(0x0000cc, 0x0000cc, 0x0000cc);
+// Set the mark label font color to purple (0x9933ff)
+mark.setFontColor(0x9933ff);
 
-	// Add the fouth y-axis at 50 pixels to the right of the plot area
-	Axis rightAxis = c.addAxis(Chart.Right, 50);
-	// Add a title on top of the fourth y axis.
-	rightAxis.setTitle("Error\n(%)").setAlignment(Chart.TopRight2);
-	// Set the axis, label and title colors for the fourth y axis to purple (880088) to match the fourth
-	// data set
-	rightAxis.setColors(0x880088, 0x880088, 0x880088);
+// Add a copyright message at (575, 295) (bottom right of plot area) using Arial Bold font
+ChartDirector.TextBox copyRight = c.addText(575, 295, "(c) Copyright Space Travel Ltd", "Arial Bold"
+    );
+copyRight.setAlignment(Chart.BottomRight);
 
-	// Add a line layer to for the first data set using red (c00000) color, with a line width of 2
-	// pixels
-	LineLayer layer0 = c.addLineLayer(data0, 0xcc0000, "Power");
-	layer0.setLineWidth(2);
+// Add a line layer to the chart
+LineLayer layer = c.addLineLayer();
 
-	// Add a line layer to for the second data set using green (00c0000) color, with a line width of 2
-	// pixels. Bind the layer to the secondary y-axis.
-// 	LineLayer layer1 = c.addLineLayer(data1, 0x008000, "Load");
-	LineLayer layer1 = c.addLineLayer2();
-	layer1.addDataSet(data1, 0x00ff00, "Load").setDataSymbol(Chart.GlassSphere2Shape, 11);
-	layer1.setLineWidth(2);
-	layer1.setUseYAxis2();
+// Set the default line width to 3 pixels
+layer.setLineWidth(3);
 
-	// Add a line layer to for the third data set using blue (0000cc) color, with a line width of 2
-	// pixels. Bind the layer to the third y-axis.
-	LineLayer layer2 = c.addLineLayer(data2, 0x0000cc, "Temperature");
-	layer2.setLineWidth(2);
-	layer2.setUseYAxis(leftAxis);
+// Add the data sets to the line layer
+layer.addDataSet(data0, -1, "Enterprise");
+layer.addDataSet(data1, -1, "Consumer");
 
-	// Add a line layer to for the fourth data set using purple (880088) color, with a line width of 2
-	// pixels. Bind the layer to the fourth y-axis.
-	LineLayer layer3 = c.addLineLayer(data3, 0x880088, "Error Rate");
-	layer3.setLineWidth(2);
-	layer3.setUseYAxis(rightAxis);
+// Create the image
+String chart1URL = c.makeSession(request, "chart1");
 
-	// Output the chart
-	String chart1URL = c.makeSession(request, "chart1");
-	// Include tool tip for the chart
+// Create an image map for the chart
+String chartImageMap = c.getHTMLImageMap("xystub.jsp", "",
+    "title='{dataSetName} @ {xLabel} = USD {value|0} millions'");
+
+// Create an image map for the legend box
+String legendImageMap = legendBox.getHTMLImageMap("javascript:popMsg('the legend key [{dataSetName}]');", " ","title='This legend key is clickable!'");
+
+// Obtain the image map coordinates for the title, mark, and copyright message. These will be used
+// to define the image map inline. (See HTML code below.)
+String titleCoor = title.getImageCoor();
+String markCoor = mark.getImageCoor();
+String copyRightCoor = copyRight.getImageCoor();
 %>
 <html>
-<body style="margin: 5px 0px 0px 5px">
-	<div style="font-size: 18pt; font-family: verdana; font-weight: bold">
-		Multiple Axes</div>
-	<hr color="#000080">
-	<div
-		style="font-size: 10pt; font-family: verdana; margin-bottom: 1.5em">
-		<a href="viewsource.jsp?file=<%=request.getServletPath()%>">View
-			Source Code</a>
-	</div>
-	<img src='<%=response.encodeURL("getchart.jsp?" + chart1URL)%>'
-		usemap="#map1" border="0">
+<body style="margin:5px 0px 0px 5px">
+<script type="text/javascript">
+function popMsg(msg) {
+    alert("You have clicked on " + msg + ".");
+}
+</script>
+<div style="font-size:18pt; font-family:verdana; font-weight:bold">
+    Custom Clickable Objects
+</div>
+<hr style="border:solid 1px #000080" />
+<div style="font-size:10pt; font-family:verdana; margin-bottom:20px">
+    <a href='viewsource.jsp?file=<%=request.getServletPath()%>'>View Source Code</a>
+</div>
+<div style="font-size:10pt; font-family:verdana; width:600px; margin-bottom:20px">
+    In the following chart, the lines, legend keys, title, copyright, and the "Merge
+    with Star Tech" text are all clickable!
+</div>
+<img src="<%=response.encodeURL("getchart.jsp?"+chart1URL)%>" border="0" usemap="#map1">
+<map name="map1">
+<%=chartImageMap%>
+<%=legendImageMap%>
+<area <%=titleCoor%>  href='javascript:popMsg("the chart title");'
+    title='The title is clickable!' />
+<area <%=markCoor%> href='javascript:popMsg("the Merge with Star Tech mark");'
+    title='The "Merge with Star Tech" text is clickable!' />
+<area <%=copyRightCoor%> href='javascript:popMsg("the copyright message");'
+    title='The copyright text is clickable!' />
+</map>
 </body>
 </html>

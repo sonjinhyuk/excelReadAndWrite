@@ -60,6 +60,7 @@
 		</div>
 <!-- 		<div id = "grapePrint"> -->
 			<img src='' usemap="#map1" id = "printGrape" border="0">
+			<map name="map1" id = "map1"></map>
 <!-- 		</div> -->
 		<div class = "listClass">
 			<div class = "list">

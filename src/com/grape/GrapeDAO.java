@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.apache.poi.util.ArrayUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import ChartDirector.Axis;
 import ChartDirector.Chart;
@@ -191,6 +189,7 @@ public class GrapeDAO {
 		json = datas.get(datas.size()-2).toString();
 		int count = Integer.parseInt(json.split("},")[0].split("\"count\":")[1]);
 		String[] powerPlant = new String[count];
+		String[] dateLabel;
 		for( int i = 0; i < count; i++ ){
 			powerPlant[i] = json.split("},")[0].split((i+1)+"\":\"")[1].split("\",")[0];
 		}
@@ -199,9 +198,13 @@ public class GrapeDAO {
 			json = json.replace("[", "");
 			json = json.replace("]", "");
 			if( i == datas.size()-2 ){//y축 결정과 x축 lables 결정
+//				dateLabel = json.split("},")[1].split(",");
+//				labels = new String[dateLabel.length];
+//				for( int j = 0; j < labels.length; j++ ){
+//					labels[j] = dateLabel[j].replace(" ", ",");
+//				}
 				labels = json.split("},")[1].split(",");
 			} else if( i == datas.size()-1 ) {//checkData
-				System.out.println(json);
 				String[] checkData = json.split("},");
 				String checkDataString;
 				for( int cNum = 0; cNum < count; cNum++ ){
@@ -265,7 +268,6 @@ public class GrapeDAO {
 			}else {
 				data = getData(xData.get(i));
 				layer = c.addLineLayer(data);
-				System.out.println(i);
 				layer.addDataSet(data, color[i], powerPlant[i]);
 			}
 		}
@@ -402,8 +404,6 @@ public class GrapeDAO {
 				returndata[i++] = (Double) null;
 			}
 		}
-		
 		return returndata;
-		
 	}
 }

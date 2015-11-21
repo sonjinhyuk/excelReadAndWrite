@@ -71,7 +71,14 @@ public class Grape extends HttpServlet {
 				gdao = new GrapeDAO();
 				XYChart c = gdao.getDataCharDirectorChart(type,period,endDate,calDate);
 				String chartURL = c.makeSession(request, "chart1");
-				pw.print(chartURL);//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
+				JSONObject returndata = new JSONObject();
+				String chartImageMap = c.getHTMLImageMap("", " ","title='Check Date' class=[{dataSetName}] value = [{xLabel}] onclick = popMsg(this);");
+//				String chartImageMap = c.getHTMLImageMap("javascript:popMsg('the legend key [{dataSetName}]');", " ",
+//			    "title='This legend key is clickable!'");
+				System.out.println(chartImageMap);
+				returndata.put("chart", chartURL);
+				returndata.put("Image", chartImageMap);
+				pw.print(returndata);//타입과 만약 오늘기준 개월수라면 today, 특정 년도 월 일 이라면 앞에 인자는 년도, 뒤에 인자는 월 을 나타냄
 			}
 		}
 		
